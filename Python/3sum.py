@@ -1,6 +1,6 @@
 # Time:  O(n^2)
 # Space: O(1)
-#
+
 # Given an array S of n integers,
 # are there elements a, b, c in S such that a + b + c = 0?
 # Find all unique triplets in the array which gives the sum of zero.
@@ -13,7 +13,9 @@
 #    A solution set is:
 #    (-1, 0, 1)
 #    (-1, -1, 2)
-#
+
+import collections
+
 
 class Solution(object):
     def threeSum(self, nums):
@@ -40,6 +42,23 @@ class Solution(object):
             i += 1
         return result
 
-if __name__ == '__main__':
-    result = Solution().threeSum([-1, 0, 1, 2, -1, -4])
-    print result
+    def threeSum2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        d = collections.Counter(nums)
+        nums_2 = [x[0] for x in d.items() if x[1] > 1]
+        nums_new = sorted([x[0] for x in d.items()])
+        rtn = [[0, 0, 0]] if d[0] >= 3 else []
+        for i, j in enumerate(nums_new):
+            if j <= 0:
+                numss2 = nums_new[i + 1:]
+                for x, y in enumerate(numss2):
+                    if 0 - j - y in [j, y] and 0 - j - y in nums_2:
+                        if sorted([j, y, 0 - j - y]) not in rtn:
+                            rtn.append(sorted([j, y, 0 - j - y]))
+                    if 0 - j - y not in [j, y] and 0 - j - y in nums_new:
+                        if sorted([j, y, 0 - j - y]) not in rtn:
+                            rtn.append(sorted([j, y, 0 - j - y]))
+        return rtn

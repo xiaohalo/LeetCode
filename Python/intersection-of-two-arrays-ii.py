@@ -32,6 +32,9 @@
 # Time:  O(m + n)
 # Space: O(min(m, n))
 # Hash solution.
+import collections
+
+
 class Solution(object):
     def intersect(self, nums1, nums2):
         """
@@ -41,7 +44,7 @@ class Solution(object):
         """
         if len(nums1) > len(nums2):
             return self.intersect(nums2, nums1)
-  
+
         lookup = collections.defaultdict(int)
         for i in nums1:
             lookup[i] += 1
@@ -53,6 +56,18 @@ class Solution(object):
                 lookup[i] -= 1
 
         return res
+
+    def intersect2(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        c = collections.Counter(nums1) & collections.Counter(nums2)
+        intersect = []
+        for i in c:
+            intersect.extend([i] * c[i])
+        return intersect
 
 
 # If the given array is already sorted, and the memory is limited, and (m << n or m >> n).
@@ -87,7 +102,7 @@ class Solution(object):
             if left != len(nums2) and nums2[left] == i:
                 res += i,
                 left += 1
-        
+
         return res
 
 
@@ -105,7 +120,7 @@ class Solution(object):
         nums1.sort(), nums2.sort()  # Make sure it is sorted, doesn't count in time.
 
         res = []
-        
+
         it1, it2 = 0, 0
         while it1 < len(nums1) and it2 < len(nums2):
             if nums1[it1] < nums2[it2]:
@@ -116,7 +131,7 @@ class Solution(object):
                 res += nums1[it1],
                 it1 += 1
                 it2 += 1
-        
+
         return res
 
 
@@ -134,7 +149,7 @@ class Solution(object):
         nums1.sort(), nums2.sort()  # O(max(m, n) * log(max(m, n)))
 
         res = []
-        
+
         it1, it2 = 0, 0
         while it1 < len(nums1) and it2 < len(nums2):
             if nums1[it1] < nums2[it2]:
@@ -145,5 +160,5 @@ class Solution(object):
                 res += nums1[it1],
                 it1 += 1
                 it2 += 1
-        
+
         return res

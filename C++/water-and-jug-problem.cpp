@@ -1,10 +1,11 @@
 // Time:  O(logn), n is the max of (x, y)
 // Space: O(1)
 
+// Bézout's identity (also called Bézout's lemma) 
 class Solution {
 public:
     bool canMeasureWater(int x, int y, int z) {
-        return z <= max(x, y) && z % gcd(x, y) == 0;
+        return z == 0 || (z <= x + y && z % gcd(x, y) == 0);
     }
     
 private:

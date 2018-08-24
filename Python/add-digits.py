@@ -16,10 +16,13 @@
 # Hint:
 #
 # A naive implementation of the above process is trivial.
-# Could you come up with other methods? 
-#
-class Solution:
-    # @param {integer} num
-    # @return {integer}
+# Could you come up with other methods?
+
+
+class Solution(object):
+    """
+    :type num: int
+    :rtype: int
+    """
     def addDigits(self, num):
         return (num - 1) % 9 + 1 if num > 0 else 0
